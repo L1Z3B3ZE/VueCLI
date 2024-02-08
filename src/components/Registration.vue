@@ -40,7 +40,7 @@ export default {
       });
 
       if (response.ok) {
-        this.$router.push('/login'); // Перенаправляем пользователя на авторизацию
+        this.$router.push('/login');
       } else {
         this.error = "Ошибка при регистрации";
         console.error('Ошибка:', this.error);
