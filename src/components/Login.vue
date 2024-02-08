@@ -5,6 +5,7 @@
       Password<input type="password" v-model="password">
       <button type="submit">Войти</button>
     </form>
+    <button @click="toHomePage">Назад</button>
     <p v-if="error">{{ error }}</p>
   </div>
 </template>
@@ -42,6 +43,9 @@ export default {
       } else {
         this.error = "Неверные учетные данные";
       }
+    },
+    toHomePage(){
+      this.$router.push('/');
     }
   }
 }
