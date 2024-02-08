@@ -1,8 +1,15 @@
 <template>
   <header>
     <h1 class="catalog" @click="getCatalogProduct">Каталог</h1>
-    <router-link to="/signup">Sign Up</router-link>
-    <router-link to="/login">Login</router-link>
+    <div v-if="!isAuthenticated">
+      <router-link to="/signup">Sign Up</router-link>
+      <router-link to="/login">Login</router-link>
+    </div>
+    <div v-else>
+      <a href="#">logout</a><br/>
+      <a href="#">cart</a><br/>
+      <a href="#">orders</a><br/>
+    </div>
   </header>
   <div v-for="product in products" :key="product.id" class="catalog">
     <div class="product">
@@ -12,6 +19,7 @@
       <button>В корзину</button>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -39,6 +47,11 @@ export default {
         this.error = "Ошибка";
         console.error(this.error);
       }
+    }
+  },
+  computed: {
+    isAuthenticated() {
+      return !!localStorage.getItem('userToken');
     }
   }
 }
