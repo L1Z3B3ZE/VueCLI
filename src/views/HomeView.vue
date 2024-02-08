@@ -6,7 +6,7 @@
       <router-link to="/login">Login</router-link>
     </div>
     <div v-else>
-      <a href="#">logout</a><br/>
+      <button @click="logout">logout</button><br/>
       <a href="#">cart</a><br/>
       <a href="#">orders</a><br/>
     </div>
@@ -16,7 +16,7 @@
       <p>{{ product.name }}</p>
       <p>{{ product.description }}</p>
       <p>{{ product.price }} руб.</p>
-      <button>В корзину</button>
+      <button v-if="isAuthenticated" @click="addToCart(product)">В корзину</button>
     </div>
   </div>
 
@@ -27,13 +27,14 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      url: "https://jurapro.bhuser.ru/api-shop/products",
+      url: "https://jurapro.bhuser.ru/api-shop",
       products: [],
+      productsInCart: []
     }
   },
   methods:{
     async getCatalogProduct(){
-      const response = await fetch(this.url,{
+      const response = await fetch(this.url + '/products',{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -45,6 +46,29 @@ export default {
         console.log('Result: ', result)
       } else {
         this.error = "Ошибка";
+        console.error(this.error);
+      }
+    },
+
+    logout() {
+      localStorage.removeItem('userToken');
+      this.$router.push('/login');
+    },
+
+    async addToCart(product) {
+      const response = await fetch(`${this.url}/cart/${product.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+        },
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Result: ', result)
+        this.productsInCart.push(product);
+      } else {
+        this.error = "Ошибка при добавлении товара в корзину";
         console.error(this.error);
       }
     }
