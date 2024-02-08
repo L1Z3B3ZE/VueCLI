@@ -1,5 +1,8 @@
 <template>
-  <h1 class="catalog" @click="getCatalogProduct">Каталог</h1>
+  <header>
+    <h1 class="catalog" @click="getCatalogProduct">Каталог</h1>
+    <router-link to="/signup">Sign Up</router-link>
+  </header>
   <div v-for="product in products" :key="product.id" class="catalog">
     <div class="product">
       <p>{{ product.name }}</p>
