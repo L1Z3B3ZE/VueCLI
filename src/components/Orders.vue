@@ -70,7 +70,6 @@ export default {
   padding: 20px;
   width: calc(30% - 40px);
   text-align: center;
-  background-color: #f8f9fa;
   box-shadow: 5px 5px 5px #e7e7e7;
 }
 

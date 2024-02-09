@@ -13,7 +13,9 @@
     </div>
   </div>
   <button @click="userOrders" v-if="products.length > 0" class="checkout-button">Оформить заказ</button>
-
+  <div class="popup" v-if="showPopup">
+    Товар успешно удален
+  </div>
 </template>
 
 
@@ -24,6 +26,7 @@ export default {
     return {
       url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
+      showPopup: false
     };
   },
   created() {
@@ -67,7 +70,11 @@ export default {
         });
         if (response.ok) {
           console.log("Товар успешно удален из корзины");
-          location. reload()
+          this.showPopup = true;
+          setTimeout(() => {
+            this.showPopup = false;
+          }, 3000);
+          setTimeout(() => {location. reload()}, 3000 )
 
         } else {
           console.error("Ошибка удаления товара из корзины:", response.statusText);
@@ -175,5 +182,17 @@ export default {
 
 h1{
   text-align: center;
+}
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
 }
 </style>
