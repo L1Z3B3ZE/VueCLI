@@ -1,13 +1,13 @@
 <template>
   <div class="register">
     <form class="form" @submit.prevent="authorization">
-      <label>FIO</label>
+      <label>ФИО</label>
       <input type="text" v-model="fio" :class="{ 'error': fioError }">
       <p v-if="fioError" class="error-text">Введите корректное ФИО</p>
       <label>Email</label>
       <input type="email" v-model="email" :class="{ 'error': emailError }">
       <p v-if="emailError" class="error-text">Введите корректный Email</p>
-      <label>Password</label>
+      <label>Пароль</label>
       <input type="password" v-model="password" :class="{ 'error': passwordError }">
       <p v-if="passwordError" class="error-text">Пароль должен содержать 8 символов</p>
       <button type="submit">Зарегистрироваться</button>
@@ -99,12 +99,16 @@ export default {
 
 .form button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
+.form button:hover{
+  background-color: #371b59;
+}
+
 
 .register > button {
   margin-top: 20px;
@@ -114,6 +118,9 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.register > button:hover{
+  background-color: #4f575d;
 }
 
 .error {

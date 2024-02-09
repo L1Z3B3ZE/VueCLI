@@ -78,7 +78,7 @@ export default {
 }
 
 .back-button {
-  padding: 10px;
+  padding: 7px;
   background-color: #6c757d;
   color: white;
   border: none;

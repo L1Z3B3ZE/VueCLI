@@ -3,12 +3,16 @@
     <form class="form" @submit.prevent="login">
       <label>Email</label>
       <input type="text" v-model="email" :class="{'error': this.error}">
-      <label>Password</label>
+      <label>Пароль</label>
       <input type="password" v-model="password" :class="{'error': this.error}">
       <p class="error_text" v-if="error">{{ error }}</p>
       <button type="submit">Войти</button>
     </form>
+
     <button @click="toHomePage">Назад</button>
+    <div class="popup" v-if="showPopup">
+      авторизация прошла успешно
+    </div>
 
   </div>
 </template>
@@ -20,7 +24,8 @@ export default {
       url: 'https://jurapro.bhuser.ru/api-shop',
       email: '',
       password: '',
-      error: ''
+      error: '',
+      showPopup: false
     }
   },
   methods: {
@@ -42,7 +47,14 @@ export default {
       if (response.ok) {
         const userToken = await response.json();
         localStorage.setItem('userToken', userToken.data.user_token);
-        this.$router.push('/');
+        this.showPopup = true;
+        setTimeout(() => {
+          this.showPopup = false;
+        }, 1000);
+        setTimeout(()=> {
+          this.$router.push('/')
+        }, 1000)
+
       } else {
         this.error = "Неверные учетные данные";
       }
@@ -85,11 +97,14 @@ export default {
 
 .form button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.form button:hover{
+  background-color: #371b59;
 }
 
 .login > button {
@@ -101,12 +116,28 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+.login > button:hover{
+  background-color: #4f575d;
+}
 
 .error {
-  box-shadow: 0px 0px 5px red;
+  box-shadow: 0 0 5px red;
 }
 
 .error_text{
   color: red;
+}
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #625580;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 70%;
 }
 </style>

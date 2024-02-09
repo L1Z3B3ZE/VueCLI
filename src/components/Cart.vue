@@ -155,7 +155,7 @@ export default {
 }
 
 .btn {
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -163,7 +163,7 @@ export default {
   cursor: pointer;
 }
 .btn:hover{
-  background-color: #005abd;
+  background-color: #371b59;
 }
 
 .btnBack {
@@ -172,7 +172,7 @@ export default {
   background-color: #6c757d;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 7px 20px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -185,14 +185,14 @@ export default {
   width: 300px;
   padding: 10px;
   margin: 20px auto;
-  background-color: #28a745;
+  background-color: #625580;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 .checkout-button:hover{
-  background-color: #1b702c;
+  background-color: #371b59;
 }
 
 h1{
@@ -204,7 +204,7 @@ h1{
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;

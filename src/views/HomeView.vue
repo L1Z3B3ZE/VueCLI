@@ -155,7 +155,7 @@ a:hover {
 }
 
 .product button {
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -164,7 +164,7 @@ a:hover {
 }
 
 .product button:hover{
-  background-color: #005abd;
+  background-color: #371b59;
 }
 
 .popup {
@@ -172,7 +172,7 @@ a:hover {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #007bff;
+  background-color: #625580;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
