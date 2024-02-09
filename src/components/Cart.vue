@@ -2,7 +2,10 @@
   <h1>Корзина</h1>
   <button @click="toHomePage">Назад</button>
   <div class="home-container">
-    <div v-for="product in products" :key="product.id">
+    <div v-if="products.length === 0">
+      <p>Корзина пуста</p>
+    </div>
+    <div v-else v-for="product in products" :key="product.id">
       <p>Название: {{ product.name }}</p>
       <p>Описание: {{ product.description }}</p>
       <p>Цена: {{ product.price }}руб.</p>
