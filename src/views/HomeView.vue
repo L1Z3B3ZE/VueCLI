@@ -55,7 +55,8 @@ export default {
 
     logout() {
       localStorage.removeItem('userToken');
-      this.$router.push('/login');
+      this.$router.push('/');
+      location. reload()
     },
 
     async addToCart(product) {
@@ -73,7 +74,7 @@ export default {
         this.showPopup = true;
         setTimeout(() => {
           this.showPopup = false;
-        }, 3000);
+        }, 1000);
       } else {
         this.error = "Ошибка при добавлении товара в корзину";
         console.error(this.error);

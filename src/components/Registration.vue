@@ -2,11 +2,14 @@
   <div class="register">
     <form class="form" @submit.prevent="authorization">
       <label>FIO</label>
-      <input type="text" required v-model="fio">
+      <input type="text" v-model="fio" :class="{ 'error': fioError }">
+      <p v-if="fioError" class="error-text">Введите корректное ФИО</p>
       <label>Email</label>
-      <input type="email" required v-model="email">
+      <input type="email" v-model="email" :class="{ 'error': emailError }">
+      <p v-if="emailError" class="error-text">Введите корректный Email</p>
       <label>Password</label>
-      <input type="password" required v-model="password">
+      <input type="password" v-model="password" :class="{ 'error': passwordError }">
+      <p v-if="passwordError" class="error-text">Пароль должен содержать 8 символов</p>
       <button type="submit">Зарегистрироваться</button>
     </form>
     <button @click="toHomePage">Назад</button>
@@ -20,11 +23,22 @@ export default {
       url: 'https://jurapro.bhuser.ru/api-shop',
       fio: '',
       email: '',
-      password: ''
+      password: '',
+      fioError: false,
+      emailError: false,
+      passwordError: false
     }
   },
   methods: {
     async authorization() {
+      this.fioError = !this.fio;
+      this.emailError = !this.email.includes('@');
+      this.passwordError = this.password.length < 8;
+
+      if (this.fioError || this.emailError || this.passwordError) {
+        return;
+      }
+
       const user = {
         fio: this.fio,
         email: this.email,
@@ -46,9 +60,6 @@ export default {
         console.error('Ошибка:', this.error);
       }
 
-      this.fio = '';
-      this.email = '';
-      this.password = '';
     },
     toHomePage(){
       this.$router.push('/');
@@ -104,4 +115,13 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.error {
+  box-shadow: 0px 0px 5px red;
+}
+
+.error-text {
+  color: red;
+}
+
 </style>

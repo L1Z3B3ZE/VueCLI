@@ -73,8 +73,8 @@ export default {
           this.showPopup = true;
           setTimeout(() => {
             this.showPopup = false;
-          }, 3000);
-          setTimeout(() => {location. reload()}, 3000 )
+          }, 1000);
+          setTimeout(() => {location. reload()}, 1000 )
 
         } else {
           console.error("Ошибка удаления товара из корзины:", response.statusText);

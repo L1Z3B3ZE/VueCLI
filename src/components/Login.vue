@@ -1,12 +1,15 @@
 <template>
   <div class="login">
     <form class="form" @submit.prevent="login">
-      Email<input type="text" v-model="email">
-      Password<input type="password" v-model="password">
+      <label>Email</label>
+      <input type="text" v-model="email" :class="{'error': this.error}">
+      <label>Password</label>
+      <input type="password" v-model="password" :class="{'error': this.error}">
+      <p class="error_text" v-if="error">{{ error }}</p>
       <button type="submit">Войти</button>
     </form>
     <button @click="toHomePage">Назад</button>
-    <p v-if="error">{{ error }}</p>
+
   </div>
 </template>
 
@@ -70,6 +73,10 @@ export default {
   border-radius: 5px;
 }
 
+.form label {
+  font-weight: bold;
+}
+
 .form input {
   padding: 10px;
   border: 1px solid #dee2e6;
@@ -93,5 +100,13 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.error {
+  box-shadow: 0px 0px 5px red;
+}
+
+.error_text{
+  color: red;
 }
 </style>
