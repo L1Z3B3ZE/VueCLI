@@ -143,7 +143,7 @@ export default {
 .btnBack {
   display: flex;
   margin: 0 auto;
-  background-color: #007bff;
+  background-color: #6c757d;
   color: white;
   border: none;
   padding: 10px 20px;
