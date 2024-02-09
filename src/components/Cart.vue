@@ -1,4 +1,6 @@
 <template>
+  <h1>Корзина</h1>
+  <button @click="toHomePage">Назад</button>
   <div class="home-container">
     <div v-for="product in products" :key="product.id">
       <p>Название: {{ product.name }}</p>
@@ -7,6 +9,7 @@
       <button @click="deleteProduct(product)" type="submit" class="btn">Удалить из корзины</button>
     </div>
   </div>
+
 </template>
 
 
@@ -39,6 +42,34 @@ export default {
       } else {
         this.error = "Ошибка";
         console.error(this.error);
+      }
+    },
+    toHomePage(){
+      this.$router.push('/');
+    },
+    async deleteProduct(product) {
+      const token = localStorage.getItem('userToken');
+      if (!token) {
+        console.error('Токен пользователя отсутствует.');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${this.url}/cart/${product.id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          console.log("Товар успешно удален из корзины");
+          location. reload()
+
+        } else {
+          console.error("Ошибка удаления товара из корзины:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Ошибка удаления товара из корзины:", error);
       }
     },
   }

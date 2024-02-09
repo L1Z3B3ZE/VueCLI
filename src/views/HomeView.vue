@@ -7,8 +7,7 @@
     </div>
     <div v-else>
       <button @click="logout">logout</button><br/>
-      <a href="#">cart</a><br/>
-      <a href="#">orders</a><br/>
+      <router-link to="/cart">Cart</router-link>
     </div>
   </header>
   <div v-for="product in products" :key="product.id" class="catalog">
