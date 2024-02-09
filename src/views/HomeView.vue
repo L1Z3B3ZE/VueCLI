@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1 class="catalog" @click="getCatalogProduct">Каталог</h1>
+    <button @click="getCatalogProduct">Каталог</button>
     <div v-if="!isAuthenticated">
       <router-link to="/signup">Sign Up</router-link>
       <router-link to="/login">Login</router-link>
@@ -8,6 +8,7 @@
     <div v-else>
       <button @click="logout">logout</button><br/>
       <router-link to="/cart">Cart</router-link>
+      <router-link to="/order">Orders</router-link>
     </div>
   </header>
   <div v-for="product in products" :key="product.id" class="catalog">
