@@ -13,6 +13,9 @@
       <button type="submit">Зарегистрироваться</button>
     </form>
     <button @click="toHomePage">Назад</button>
+    <div class="popup" v-if="showPopup">
+      Регистрация прошла успешно
+    </div>
   </div>
 </template>
 
@@ -26,7 +29,8 @@ export default {
       password: '',
       fioError: false,
       emailError: false,
-      passwordError: false
+      passwordError: false,
+      showPopup: false
     }
   },
   methods: {
@@ -54,7 +58,13 @@ export default {
       });
 
       if (response.ok) {
-        this.$router.push('/login');
+        this.showPopup = true;
+        setTimeout(() => {
+          this.showPopup = false;
+        }, 1000);
+        setTimeout(()=> {
+          this.$router.push('/login');
+        }, 1000)
       } else {
         this.error = "Ошибка при регистрации";
         console.error('Ошибка:', this.error);
@@ -131,4 +141,16 @@ export default {
   color: red;
 }
 
+.popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #625580;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 70%;
+}
 </style>

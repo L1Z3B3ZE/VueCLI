@@ -11,7 +11,7 @@
 
     <button @click="toHomePage">Назад</button>
     <div class="popup" v-if="showPopup">
-      авторизация прошла успешно
+      Авторизация прошла успешно
     </div>
 
   </div>
