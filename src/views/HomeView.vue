@@ -126,6 +126,7 @@ a:hover {
   padding: 20px;
   width: calc(33% - 40px);
   text-align: center;
+  box-shadow: 5px 5px 5px #e7e7e7;
 }
 
 .product p {
@@ -139,6 +140,10 @@ a:hover {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.product button:hover{
+  background-color: #005abd;
 }
 
 .popup {

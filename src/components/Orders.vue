@@ -71,7 +71,7 @@ export default {
   width: calc(30% - 40px);
   text-align: center;
   background-color: #f8f9fa;
-  box-shadow: 10px 5px 5px #b0b0b0;
+  box-shadow: 5px 5px 5px #e7e7e7;
 }
 
 .order-item h3 {

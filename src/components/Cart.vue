@@ -125,6 +125,7 @@ export default {
   padding: 20px;
   width: calc(45% - 40px);
   text-align: center;
+  box-shadow: 5px 5px 5px #e7e7e7;
 }
 
 .products p {
@@ -139,6 +140,9 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+.btn:hover{
+  background-color: #005abd;
+}
 
 .btnBack {
   display: flex;
@@ -149,6 +153,9 @@ export default {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+.btnBack:hover{
+  background-color: #4f575d;
 }
 
 .checkout-button {
@@ -161,6 +168,9 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.checkout-button:hover{
+  background-color: #1b702c;
 }
 
 h1{
