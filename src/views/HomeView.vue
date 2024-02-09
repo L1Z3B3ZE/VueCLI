@@ -11,13 +11,16 @@
       <a href="#" @click="logout">Выход</a>
     </div>
   </header>
+
   <div class="catalog">
-    <div v-for="product in products" :key="product.id" class="product">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <p>{{ product.price }} руб.</p>
-      <button v-if="isAuthenticated" @click="addToCart(product)">В корзину</button>
-    </div>
+    <transition-group class="catalog" name="list" tag="div">
+      <div v-for="product in products" :key="product.id" class="product">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>{{ product.price }} руб.</p>
+        <button v-if="isAuthenticated" @click="addToCart(product)">В корзину</button>
+      </div>
+    </transition-group>
   </div>
   <div class="popup" v-if="showPopup">
     Товар добавлен в корзину
@@ -32,24 +35,30 @@ export default {
       url: "https://jurapro.bhuser.ru/api-shop",
       products: [],
       productsInCart: [],
-      showPopup: false
+      showPopup: false,
+      showProducts: false,
     }
   },
   methods:{
     async getCatalogProduct(){
-      const response = await fetch(this.url + '/products',{
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const result = await response.json();
-        this.products = result.data
-        console.log('Result: ', result)
+      this.showProducts = !this.showProducts;
+      if (this.showProducts) {
+        const response = await fetch(this.url + '/products',{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const result = await response.json();
+          this.products = result.data
+          console.log('Result: ', result)
+        } else {
+          this.error = "Ошибка";
+          console.error(this.error);
+        }
       } else {
-        this.error = "Ошибка";
-        console.error(this.error);
+        this.products = [];
       }
     },
 
@@ -127,7 +136,18 @@ a:hover {
   padding: 20px;
   width: calc(33% - 40px);
   text-align: center;
-  box-shadow: 5px 5px 5px #e7e7e7;
+  box-shadow: 0 5px 10px #e7e7e7;
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+.product:hover{
+  box-shadow: 0 8px 40px 0 #d0d0d0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 .product p {
@@ -157,6 +177,15 @@ a:hover {
   padding: 10px 20px;
   border-radius: 5px;
   z-index: 999;
+  opacity: 70%;
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>
 

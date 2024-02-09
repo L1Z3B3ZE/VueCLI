@@ -5,7 +5,7 @@
     <div v-if="products.length === 0">
       <p>Корзина пуста</p>
     </div>
-    <div class="products" v-else v-for="product in products" :key="product.id">
+    <div class="products" v-else v-for="product in products" :key="product.id" :class="{ 'product-deleted': product.deleting }">
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
       <p>{{ product.price }}руб.</p>
@@ -55,34 +55,40 @@ export default {
       this.$router.push('/');
     },
     async deleteProduct(product) {
+      product.deleting = true;
+      await new Promise(r => setTimeout(r, 500));
       const token = localStorage.getItem('userToken');
       if (!token) {
         console.error('Токен пользователя отсутствует.');
         return;
       }
 
-      try {
+      try{
         const response = await fetch(`${this.url}/cart/${product.id}`, {
-          method: "DELETE",
+          method: 'DELETE',
           headers: {
-            "Authorization": `Bearer ${token}`
-          }
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+          },
         });
         if (response.ok) {
-          console.log("Товар успешно удален из корзины");
+          const result = await response.json();
+          console.log('Result: ', result)
+          this.products = this.products.filter(p => p.id !== product.id);
           this.showPopup = true;
           setTimeout(() => {
             this.showPopup = false;
           }, 1000);
-          setTimeout(() => {location. reload()}, 1000 )
-
         } else {
-          console.error("Ошибка удаления товара из корзины:", response.statusText);
+          this.error = "Ошибка при удалении товара из корзины";
+          console.error(this.error);
         }
       } catch (error) {
         console.error("Ошибка удаления товара из корзины:", error);
       }
+
     },
+
     async userOrders() {
       const token = localStorage.getItem('userToken');
       if (!token) {
@@ -132,7 +138,16 @@ export default {
   padding: 20px;
   width: calc(45% - 40px);
   text-align: center;
-  box-shadow: 5px 5px 5px #e7e7e7;
+  box-shadow: 0 5px 10px #e7e7e7;
+  transition: opacity 0.5s, transform 0.5s;
+}
+.products:hover{
+  box-shadow: 0 8px 40px 0 #d0d0d0;
+}
+
+.product-deleted {
+  opacity: 0;
+  transform: scale(0);
 }
 
 .products p {
@@ -194,5 +209,6 @@ h1{
   padding: 10px 20px;
   border-radius: 5px;
   z-index: 999;
+  opacity: 70%;
 }
 </style>

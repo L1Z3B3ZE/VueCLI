@@ -70,7 +70,7 @@ export default {
   padding: 20px;
   width: calc(30% - 40px);
   text-align: center;
-  box-shadow: 5px 5px 5px #e7e7e7;
+  box-shadow: 0px 5px 10px #e7e7e7;
 }
 
 .order-item h3 {
