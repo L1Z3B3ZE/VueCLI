@@ -2,8 +2,8 @@
   <header class="header">
     <a href="#" @click="getCatalogProduct">Каталог</a>
     <div class="headerNav" v-if="!isAuthenticated">
-      <router-link to="/signup">Sign Up</router-link>
-      <router-link to="/login">Login</router-link>
+      <router-link to="/signup">Зарегистрироваться</router-link>
+      <router-link to="/login">Войти</router-link>
     </div>
     <div class="headerNav" v-else>
       <router-link to="/cart">Корзина</router-link>
