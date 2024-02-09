@@ -1,18 +1,19 @@
 <template>
   <h1>Корзина</h1>
-  <button @click="toHomePage">Назад</button>
+  <button class="btnBack" @click="toHomePage">Назад</button>
   <div class="home-container">
     <div v-if="products.length === 0">
       <p>Корзина пуста</p>
     </div>
-    <div v-else v-for="product in products" :key="product.id">
-      <p>Название: {{ product.name }}</p>
-      <p>Описание: {{ product.description }}</p>
-      <p>Цена: {{ product.price }}руб.</p>
+    <div class="products" v-else v-for="product in products" :key="product.id">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p>{{ product.price }}руб.</p>
       <button @click="deleteProduct(product)" type="submit" class="btn">Удалить из корзины</button>
     </div>
   </div>
   <button @click="userOrders" v-if="products.length > 0" class="checkout-button">Оформить заказ</button>
+
 </template>
 
 
@@ -108,3 +109,61 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  gap: 15px;
+}
+
+.products {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 20px;
+  width: calc(45% - 40px);
+  text-align: center;
+}
+
+.products p {
+  margin: 0 0 10px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnBack {
+  display: flex;
+  margin: 0 auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-button {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  margin: 20px auto;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+h1{
+  text-align: center;
+}
+</style>
