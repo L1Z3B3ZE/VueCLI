@@ -5,11 +5,14 @@
     <div v-if="products.length === 0">
       <p>Корзина пуста</p>
     </div>
-    <div class="products" v-else v-for="product in products" :key="product.id" :class="{ 'product-deleted': product.deleting }">
+    <div class="products" v-else v-for="product in cart" :key="product.id" :class="{ 'product-deleted': product.deleting }">
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
       <p>{{ product.price }}руб.</p>
+      <p>Количество: {{ product.quantity }}</p>
+      <button class="countBtn" @click="deleteProduct(product)">-</button>
       <button @click="deleteProduct(product)" type="submit" class="btn">Удалить из корзины</button>
+      <button class="countBtn" @click="getProduct">+</button>
     </div>
   </div>
   <button @click="userOrders" v-if="products.length > 0" class="checkout-button">Оформить заказ</button>
@@ -26,6 +29,7 @@ export default {
     return {
       url: 'https://jurapro.bhuser.ru/api-shop',
       products: [],
+      cart: {},
       showPopup: false
     };
   },
@@ -45,6 +49,15 @@ export default {
       if (response.ok) {
         const result = await response.json();
         this.products = result.data
+        this.products.forEach(el=> {
+          if (!this.cart[el.product_id]) {
+            console.log(el);
+            this.cart[el.product_id] = {id: el.id, name: el.name, description: el.description, price: el.price}
+            this.cart[el.product_id].quantity = 1
+          }else {
+            this.cart[el.product_id].quantity++
+          }
+        })
         console.log('Result: ', result)
       } else {
         this.error = "Ошибка";
@@ -79,6 +92,10 @@ export default {
           setTimeout(() => {
             this.showPopup = false;
           }, 1000);
+          setTimeout(() => {
+            location. reload()
+          }, 700);
+
         } else {
           this.error = "Ошибка при удалении товара из корзины";
           console.error(this.error);
@@ -161,6 +178,7 @@ export default {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  margin: 0 10px 0 10px;
 }
 .btn:hover{
   background-color: #371b59;
@@ -210,5 +228,17 @@ h1{
   border-radius: 5px;
   z-index: 999;
   opacity: 70%;
+}
+
+.countBtn{
+  background-color: #625580;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.countBtn:hover{
+  background-color: #371b59;
 }
 </style>
